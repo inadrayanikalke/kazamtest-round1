@@ -29,7 +29,7 @@ body {
   place-items: center;
   justify-content: center;
   min-width: 320px;
-  min-height: 50vh;
+  min-height: 100vh;
 }
 
 h3 {
@@ -68,4 +68,23 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* For WebKit browsers like Chrome and Safari */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #e7e3e5, #ff758c);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #faf6f8, #ff758c);
 }

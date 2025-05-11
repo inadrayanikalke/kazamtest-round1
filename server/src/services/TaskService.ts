@@ -15,7 +15,6 @@ export class TaskService {
   async addTask(task: string): Promise<void> {
     const tasks = await this.getTasksFromCache();
     tasks.push(task);
-
     if (tasks.length > 50) {
       logger.info("Flushing tasks to MongoDB...");
       await TaskModel.insertMany(tasks.map((t) => ({ text: t })));
@@ -32,8 +31,7 @@ export class TaskService {
 
   async getAllTasks(): Promise<string[]> {
     const tasks = (await this.getTasksFromCache()).reverse();
-    
     const mongoTasks = await TaskModel.find().lean();
-    return [...tasks, ...mongoTasks.map((t) => t.text)];
+    return [...tasks, ...mongoTasks.map((t: { text: string }) => t.text)];
   }
 }

@@ -2,7 +2,12 @@
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        xs: "16rem",
+      },
+      scrollbar: ["rounded", "gradient", "hover"],
+    },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };

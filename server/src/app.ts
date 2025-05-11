@@ -8,7 +8,7 @@ import { TaskController } from "./controllers/TaskController";
 import { createRoutes } from "./routes/taskRoutes";
 import { initMQTTClient } from "./mqtt/mqttClient";
 import { logger } from "./utils/logger";
-console.log("hi");
+
 async function startServer() {
   const app = express();
   app.use(cors());
@@ -46,7 +46,7 @@ async function startServer() {
   const taskService = new TaskService(redisClient);
   const taskController = new TaskController(taskService);
 
-  app.use("/api", createRoutes(taskController));
+  app.use("/", createRoutes(taskController));
 
   // MQTT Client Init
   await initMQTTClient(taskService);

@@ -23,14 +23,21 @@ const TaskInput: React.FC<TaskInputProps> = ({ onAdd }) => {
     try {
       await schema.validate({ text: value });
       setError(null);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     }
   };
 
   useEffect(() => {
-    if (touched) validate(input);
-  }, [input]);
+    if (input.length > 1) {
+      setTouched(true);
+      validate(input);
+    }
+  }, [input, touched]);
 
   const handleSubmit = () => {
     validate(input).then(() => {
@@ -50,7 +57,7 @@ const TaskInput: React.FC<TaskInputProps> = ({ onAdd }) => {
   return (
     <div className="space-x-1 py-4">
       <input
-        className={`border px-4 py-2 mr-2 rounded-2xl w-sm md:w-md ${
+        className={`border px-4 py-2 mr-2 rounded-2xl w-xs md:w-md ${
           error ? "border-red-500" : "border-gray-300"
         } bg-gray-200 shadow-indigo-200 shadow focus:outline-none focus:border-blue-500 focus:shadow-indigo-100`}
         type="text"
